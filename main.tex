@@ -1,0 +1,110 @@
+\documentclass{ctexart}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{lipsum}
+\usepackage{url}
+\renewcommand{\familydefault}{\sfdefault}
+
+\begin{document}
+
+\title{揭棺而起模拟赛}
+\author{霸气帅哥, Dan, Liu}
+
+\maketitle
+
+\newpage
+
+\topskip0pt
+\vspace*{\fill}
+\begin{quote}
+  \textit{我即使是死了，钉在棺材里了，也要在墓里，用这腐朽的声带喊出：}\textbf{WYS 这种出题人，就应该拿刀子杀！}\footnote{\url{https://www.zhihu.com/question/55569728/answer/145611430}}
+\end{quote}
+\vspace*{\fill}
+
+\newpage
+
+\section{loss}
+\subsection{背景}
+贵校学生节盛况空前，学校派出数千名保安，才勉强清出足够的道路，把所有摊位连接起来。这些摊位生意十分红火，每分钟为国家创造数以百亿计的 GDP。
+
+不巧的是，部分校领导听说了这一盛况，决定到学校观摩一个，保安只得把领导要经过的路线清空，沿线摊位摊主因失去生意而哀嚎不断。
+
+这一声声的哀嚎传到了校门旁综合楼二层敬老院的窗内。窗口的瘦老头陷入沉思：贵校面子工程，让国家损失了数以百亿计的 GDP！他开始记录到底损失了多少 GDP，看看是否还要购入今年的国债。一旁的胖老头叹了口气，说：“MD 这都2017年了，为什么还会有人出裸的数据结构题！”
+
+\subsection{描述}
+贵校学生节中有 $n$ 个店铺正在营业，每个店铺会在单位时间创造一定的 GDP。校方勉强清理出 $n-1$ 条道路，每条道路两端各是一个店铺，且不经过其他店铺，保证任意两个店铺之间有且仅有一条路径。
+
+忽然凭空出现 $m$ 个领导，按照各自的路线在店铺间穿梭。每个领导会在某时刻进入学校，在随后某时刻离开学校。在校领导在学校的这段时间中，领导经过路线上的\textbf{所有店铺}将不会获得营收，也就无法创造 GDP。
+
+一个十分有社会责任感的瘦老头希望能够统计因为领导的到来，国家一共损失了多少 GDP。但是考虑到学生节内店铺成千上万，瘦老头无法独自计算出这一损失，所以他真诚地希望恰好路过学校门口的你帮他计算出这一数值。
+
+\subsection{输入格式}
+第一行将会有两个正整数， $n$ 与 $m$，分别代表店铺数和领导数。
+随后一行将包含 $n$ 个\textbf{实数}，第 $i$ 个 $p_i$ 将表示店铺 $i$ 单位时间可以创造的 GDP。
+随后的 $n-1$ 行中，第 $i$ 行包含两个正整数 $a_i$ 与 $b_i$，表示店铺 $a_i$ 与 $b_i$ 之间有一条道路。
+
+随后的 $m$ 行中，第 $j$ 行将包含两个正整数， $s_j$ 与 $d_j$，以及两个\textbf{实数}, $in_j$ 与 $out_j$。$s_j$ 与 $d_j$ 表示领导 $j$ 的路径的两端店铺，$jn_j$ 与 $out_j$ 表示领导 $j$ 进入与离开学校的时间。
+
+值得注意的是，领导与领导在学校的时间与路径都可能重叠，并且给出领导的顺序与其路径、在校时间无关。
+
+输入数据中所有实数均保留 5 位 小数。
+\subsection{输出格式}
+仅一行，包含一个实数，表示损失的 GDP 总量。
+
+这一实数应保留 5 位小数。
+\subsection{示例}
+
+\begin{tabularx}{\textwidth}{|X|X|}
+  \hline
+  \textbf{输入} & \textbf{输出} \\
+  \hline
+  \begin{texttt}
+    3 2\newline
+    5579.58004 705.81921 5184.95651\newline
+    2 1\newline
+    3 1\newline
+    4 2 1126.05389 1594.82802\newline
+    3 1 3769.33675 6068.50935
+  \end{texttt} &
+  \begin{texttt}
+    output
+  \end{texttt} \\
+  \hline
+\end{tabularx}
+\subsection{数据范围}
+
+定义一个测试点可能拥有如下性质：
+
+\begin{enumerate}
+  \item \textbf{性质A}: 所有店铺至多连接有两条道路
+  \item \textbf{性质B}: 所有领导的访问时间不存在重叠
+\end{enumerate}
+
+在下表中，标注有 * 的测试点指这一测试点拥有对应性质。
+
+\bigskip
+
+\begin{table}[ht]
+  \centering
+  \begin{tabularx}{\textwidth}{|X|X|X|X|X|}
+    \hline
+    \textbf{测试点} & \textbf{n} & \textbf{m} & \textbf{性质A} & \textbf{性质B} \\\hline
+    1 & \multirow{6}{*}{$\le 10$}  & \multirow{3}{*}{$\le 10$} & * & * \\\cline{1-1} \cline{4-5}
+    2 &                             &                            & * &   \\\cline{1-1} \cline{4-5}
+    3 &                             &                            &   &   \\\cline{1-1} \cline{3-5}
+    4 &                             & \multirow{6}{*}{$\le 10^4$}& * & * \\\cline{1-1} \cline{4-5}
+    5 &                             &                            & * &   \\\cline{1-1} \cline{4-5}
+    6 &                             &                            &   &   \\\cline{1-2} \cline{3-5}
+    7 & \multirow{3}{*}{$\le 10^4$} &                            & * & * \\\cline{1-1} \cline{4-5}
+    8 &                             &                            & * &   \\\cline{1-1} \cline{4-5}
+    9 &                             &                            &   & * \\\hline
+    10& $\le 10^5$                  & $\le 10^5$                 &   &   \\\hline
+  \end{tabularx}
+\end{table}
+
+\bigskip
+
+保证：对于所有数据点：
+$ 1 \le a_i, b_i, s_j, d_j \le n $， $ 0 < p_i, in_j, out_j < 100 $。
+
+\end{document}
