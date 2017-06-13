@@ -120,5 +120,5 @@ int main() {
     if(result < seg->max) result = seg->max;
   }
 
-  printf("%l.5f", result);
+  printf("%l.5f\n", result);
 }

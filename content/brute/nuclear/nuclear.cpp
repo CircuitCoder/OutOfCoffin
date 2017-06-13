@@ -44,5 +44,5 @@ int main() {
       if(stash > result) result = stash;
     }
 
-  printf("%l.5f", result);
+  printf("%l.5f\n", result);
 }
