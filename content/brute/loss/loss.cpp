@@ -5,7 +5,7 @@
 
 using namespace std;
 
-#define NMAX 100000
+#define NMAX 10000000
 #define MMAX 100000
 
 class TreeNode {
@@ -72,19 +72,56 @@ typedef struct Event {
   }
 } Event;
 
+inline
+int getInt() {
+  char c = getchar();
+  int result = 0;
+  while(c > '9' || c < '0') c = getchar();
+  while(c <= '9' && c >= '0') {
+    result *= 10;
+    result += c - '0';
+    c = getchar();
+  }
+  return result;
+}
+
+const int divMap[] = {
+  1, 10, 100, 1000, 10000, 100000, 1000000, 10000000, 100000000, 1000000000
+};
+
+inline
+double getReal() {
+  char c = getchar();
+  double result = 0;
+  bool dot = false;
+  int counter = 0;
+  while(c > '9' || c < '0') c = getchar();
+  while(true) {
+    if(c == '.') {
+      dot = true;
+      c = getchar();
+      continue;
+    } else if(c > '9' || c < '0') break;
+
+    result *= 10;
+    result += c - '0';
+    if(dot) ++counter;
+    c = getchar();
+  }
+  return result / divMap[counter];
+}
+
 Event events[MMAX*2];
 
 int main() {
-  int n,m;
-  cin>>n>>m;
+  int n = getInt(),m = getInt();
   for(int i = 0; i<n; ++i)
-    cin>>nodes[i].value;
+    nodes[i].value = getReal();
 
   int a, b;
   for(int i = 1; i<n; ++i) {
-    cin>>a>>b;
-    --a;
-    --b;
+    a = getInt() - 1;
+    b = getInt() - 1;
     nodes[a].links.push_back(nodes + b);
     nodes[b].links.push_back(nodes + a);
   }
@@ -94,9 +131,11 @@ int main() {
   double tf, tt;
   int nf, nt;
   for(int i = 0; i<m; ++i) {
-    cin>>nf>>nt>>tf>>tt;
-    --nt;
-    --nf;
+    nf = getInt() - 1;
+    nt = getInt() - 1;
+    tf = getReal();
+    tt = getReal();
+
     events[i*2] = {
       tf,
       nf, nt,

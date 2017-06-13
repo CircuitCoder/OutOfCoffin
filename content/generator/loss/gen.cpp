@@ -1,19 +1,25 @@
 #include <iostream>
+#include <unordered_set>
 #include <random>
 #include <algorithm>
 #include <iomanip>
 using namespace std;
 
-#define NMAX 100000
+#define NMAX 10000000
 #define MMAX 100000
 
-const double EPS = 1e-5;
+#define REALPRE 10000
+#define REALPRENUM 4
+#define REALMAX 50
+
+pair<int, int> roads[NMAX+1];
+
 int main() {
   random_device rd;
   mt19937 gen(rd());
-  uniform_real_distribution<> realdis(EPS, 50);
+  uniform_int_distribution<> realdis(0, REALMAX*REALPRE);
 
-  cout<<fixed<<setprecision(5);
+  cout<<fixed<<setprecision(REALPRENUM);
 
   int n, m;
   cin>>n>>m;
@@ -21,12 +27,10 @@ int main() {
   cout<<n<<" "<<m<<endl;
 
   for(int i = 1; i<=n; ++i) {
-    cout<<realdis(gen);
+    cout<<((double) realdis(gen))/REALPRE;
     if(i != n) cout<<" ";
   }
   cout<<endl;
-
-  pair<int, int> roads[NMAX+1];
 
   if(isA) {
     for(int i = 2; i <= n; ++i)
@@ -47,11 +51,16 @@ int main() {
     cout<<roads[i].first<<" "<<roads[i].second<<endl;
 
   double time[MMAX * 2];
+  unordered_set<int> expandedTime;
   pair<double, double> timepairs[MMAX];
   uniform_int_distribution<> pathdis(1, n);
 
-  for(int i = 0; i<m * 2; ++i)
-    time[i] = realdis(gen);
+  for(int i = 0; i<m * 2; ++i) {
+    int generated = realdis(gen);
+    while(expandedTime.count(generated) > 0) generated = realdis(gen);
+    time[i] = ((double) generated)/REALPRE;
+    expandedTime.insert(generated);
+  }
 
   if(isB)
     sort(time, time + 2*m);
